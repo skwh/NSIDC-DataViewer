@@ -87,11 +87,11 @@ def get_sources(dataset):
     
 def get_current_dataset_shape(data_file_uri, col_st, row_st):
     with open(data_file_uri, 'rb') as fp:
-        fp.seek(row_st)
-        cols = int(fp.read(4).decode("utf-8"))
-        fp.seek(col_st)
-        rows = int(fp.read(4).decode("utf-8"))
+        data = fp.read()
+        cols = int(data[row_st:row_st+4].decode("utf-8"))
+        rows = int(data[col_st:col_st+4].decode("utf-8"))
     return (rows, cols)
+    
 
 class nsidc0051:
     NSIDC_0051_NORTH_URL_FORMAT = "/projects/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/north/daily/{yyyy}/nt_{yymmdd}_f17_v1.1_n.bin"
